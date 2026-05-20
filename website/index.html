@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michael Loren Siegel</title>
+<meta name="description" content="Michael Loren Siegel — Strategic Advisor at Workato. Customer governance and maturity, enterprise MCP and agentic architecture, integration platforms. Based in Barcelona.">
+<meta name="author" content="Michael Loren Siegel">
+<meta property="og:title" content="Michael Loren Siegel">
+<meta property="og:description" content="Strategic Advisor at Workato. Customer governance and maturity, enterprise MCP and agentic architecture, integration platforms. Based in Barcelona.">
+<meta property="og:url" content="https://michaellorensiegel.com/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://michaellorensiegel.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --ink: #1c1815;
+    --rust: #a44a2a;
+    --mute: #6b6660;
+    --rule: rgba(28, 24, 21, 0.12);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  .display { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
+  .display-tight { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
+  .eyebrow { color: var(--rust); text-transform: uppercase; letter-spacing: 0.22em; font-size: 11px; font-weight: 500; }
+  a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--rust); }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(164, 74, 42, 0.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(164, 74, 42, 0.05), transparent 55%);
+    z-index: -1;
+  }
+
+  header.site {
+    padding: 112px 0 28px;
+    position: relative;
+  }
+  header.site::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 2px;
+    background: var(--rust);
+    margin-top: 28px;
+    border-radius: 2px;
+  }
+  header.site h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.0;
+    font-size: clamp(44px, 7vw, 76px);
+    margin: 18px 0 22px;
+  }
+  header.site .contact {
+    color: var(--mute);
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  header.site .contact a { color: var(--mute); }
+  header.site .contact a:hover { color: var(--rust); }
+  header.site .pdf {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 11px 20px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+  }
+  header.site .pdf:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+
+  .divider {
+    text-align: center;
+    color: var(--rust);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 0.6em;
+    padding-left: 0.6em;
+    margin: 64px 0 0;
+    opacity: 0.85;
+  }
+
+  section { padding: 48px 0 8px; }
+  section h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-size: 30px;
+    margin: 0 0 28px;
+  }
+
+  .bio p { font-size: 18px; line-height: 1.65; margin: 0 0 20px; }
+  .bio p:first-of-type::first-letter {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    float: left;
+    font-size: 64px;
+    line-height: 0.9;
+    padding: 6px 10px 0 0;
+    color: var(--rust);
+  }
+
+  .role { margin-bottom: 44px; }
+  .role:last-child { margin-bottom: 8px; }
+  .role .head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6px 24px;
+    margin-bottom: 6px;
+  }
+  .role .title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .role .years { color: var(--mute); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .role .frame { color: var(--mute); font-size: 15px; margin: 4px 0 14px; }
+  .role ul { margin: 0; padding-left: 20px; }
+  .role ul li { margin-bottom: 10px; }
+  .role ul li:last-child { margin-bottom: 0; }
+  .role ul li strong { font-weight: 600; }
+
+  .skills .group { margin-bottom: 20px; }
+  .skills .group:last-child { margin-bottom: 0; }
+  .skills .label {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .skills .body { margin: 0; color: var(--ink); }
+
+  .stack p { margin: 0 0 10px; }
+  .stack p:last-child { margin: 0; }
+
+  footer.site {
+    padding: 64px 0 96px;
+    border-top: 1px solid var(--rule);
+    margin-top: 56px;
+    color: var(--mute);
+    font-size: 14px;
+  }
+  footer.site a { color: var(--mute); }
+  footer.site a:hover { color: var(--rust); }
+
+  @media (max-width: 600px) {
+    header.site { padding-top: 72px; }
+    .role .head { flex-direction: column; gap: 2px; }
+    .role .years { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <header class="site">
+    <p class="eyebrow">Strategic Advisor · Customer Architecture · Enterprise MCP</p>
+    <h1>Michael Loren Siegel</h1>
+    <p class="contact">
+      Barcelona
+      &nbsp;·&nbsp;
+      <a href="mailto:michael@michaellorensiegel.com">michael@michaellorensiegel.com</a>
+      &nbsp;·&nbsp;
+      <a href="tel:+14015803647">+1 401 580 3647</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/michaellorensiegel" rel="me">LinkedIn</a>
+    </p>
+  </header>
+
+  <section class="bio" id="welcome">
+    <h2>Welcome</h2>
+    <p>Welcome, and thanks for stopping by. I'm a Strategic Advisor at Workato, an enterprise orchestration and agentic-AI platform, and I live in Barcelona with my family and our dog Sahi. The work I do at Workato sits in two halves. The first is hands-on: I lead the strategic engagements with the company's largest enterprise customers — designing the governance, the lifecycle architecture, and the agentic-AI patterns they need to grow their Workato practice across their organizations. The second is institutional: I'm the author of GEARS, the customer governance and maturity framework Workato uses to take enterprises from initial implementation through governed, scaled adoption, and a core contributor to its agentic / Model Context Protocol extension.</p>
+    <p>I came into enterprise software through engineering — Node.js, GraphQL, integration architecture — and built the post-sale technical-services function at Thought Industries from inside that role over six years, taking it from a one-engineer escalation surface to a tiered Solutions and Platform Engineering organization.</p>
+    <p>Before tech, I spent sixteen years in higher education: a Brown PhD in modern culture and media, then professor of film and digital media at Brown and peer institutions, then senior policy and communications strategist to the president of Rhode Island School of Design. The through-line is a structural instinct — how systems are put together, how they move, and how the patterns inside one domain show up in another.</p>
+    <p>If you're here because you're hiring, I'm open to senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. The resume below has the long version. If you're here for another reason — a friend, a former student, a colleague, a curious stranger — I'm glad you came by.</p>
+  </section>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <article class="role">
+      <div class="head">
+        <h3 class="title">Workato — Strategic Advisor</h3>
+        <span class="years">2023 — present</span>
+      </div>
+      <p class="frame">Workato is an enterprise orchestration and agentic-AI platform. The Strategic Advisor role pairs framework authorship for the company at large with hands-on architecture and adoption work inside the largest enterprise engagements.</p>
+      <ul>
+        <li><strong>Author of GEARS — Workato's customer governance and maturity framework</strong>, the methodology Workato uses to take enterprise customers from initial implementation through governed, scaled adoption. GEARS is the institutional vocabulary for how the company thinks about customer scale. Authored the core framework and the embedded-platform variant (GEARS for Embed); core contributor to the agentic / Model Context Protocol extension.</li>
+        <li><strong>Lead the strategic engagements with Workato's largest enterprise customers</strong>, including a Fortune 500 cosmetics customer (architected the three-region global enablement program through 2026 — four-tier curriculum, learning-management direction, contribution to the customer's Integration Portal); a global financial-data and ratings firm (target-state operating model for an embedded integration platform serving 100+ APIs to hundreds of downstream customers); a global talent-solutions provider ($452K migration, dual-region operating model under simultaneous EU/US data residency, spanning Workday, Microsoft Dynamics 365, Oracle, and ServiceNow).</li>
+        <li><strong>Core contributor to Workato's October 2025 enterprise MCP launch</strong> — the industry's first enterprise-grade Model Context Protocol platform for AI agents. Author best-practice guidance for governed agentic deployment: end-user permission inheritance, identity propagation, composable-skills versus granular-tools design, agent and tool governance, human-in-the-loop workflows. Pioneered Workato's first agentic-AI advisory engagements.</li>
+        <li><strong>Hands-on technical architect on multi-party programs.</strong> Built and shipped the production integration personally on a four-party Salesforce↔Sage ERP engagement (on-schedule launch, alignment held across customer plus two external delivery partners). Caught a structural mismatch between an existing access-control model and a reference architecture at a visual-collaboration customer before it produced silent environment-permission failure across ~400 automations.</li>
+        <li><strong>Strong-rated pre-sales contributor</strong> across payments, telecom, automotive, and learning-platform pursuits.</li>
+        <li><strong>Build and deploy Claude-driven assets directly in customer engagements</strong> — most recently as the live workshop engine for a Centre-of-Excellence RACI design session.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="head">
+        <h3 class="title">Thought Industries — Director, Solutions and Platform Engineering</h3>
+        <span class="years">2017 — 2023</span>
+      </div>
+      <p class="frame">Enterprise learning-management SaaS. Joined as Application Engineer in 2017. Took on Senior Solutions Architect in 2019. Took over Sales Engineering in 2021 and was named Director of the combined Solutions and Platform Engineering organization.</p>
+      <ul>
+        <li><strong>Built and ran the post-sale technical-services function from inside engineering.</strong> When I joined, Thought Industries had no Technical Services function. Customer-facing technical work — integrations, custom development, escalations from Professional Services — fell to me by default. I formalized this into Solutions Architecture in 2019, led that team through three years of growth, and took over Sales Engineering in 2021 to combine the pre- and post-sale technical motions under a single Solutions and Platform Engineering organization.</li>
+        <li><strong>Designed the function to cover 50–60 customer implementations per year</strong>, with pre-sales POCs and custom-build delivery folded in. The team I built was the proof-of-concept that the framework discipline I later authored at Workato now codifies: a high-technical SaaS product needs a customer-facing technical organization that can absorb integration work, anchor adoption, and escalate cleanly into engineering — not a Customer Success team patched into engineering through tickets.</li>
+        <li><strong>Selected and implemented the iPaaS that became the company's integration backbone</strong>, redirecting integration effort out of product engineering into a Professional Services revenue motion.</li>
+        <li><strong>Direct production contributions to Node.js, Ember, and GraphQL codebases and product API</strong> — five years as a working engineer before moving into post-sale technical leadership.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="head">
+        <h3 class="title">Rhode Island School of Design — Special Assistant to the President</h3>
+        <span class="years">2015 — 2017</span>
+      </div>
+      <p class="frame">Communications and policy strategist to the president across art, design, technology, and DEI portfolios. Founded and owned the institution's first Social Equity Action Committee and Plan.</p>
+    </article>
+
+    <article class="role">
+      <div class="head">
+        <h3 class="title">Brown University and peer institutions — Professor of Film and Media Studies</h3>
+        <span class="years">2002 — 2017</span>
+      </div>
+      <p class="frame">Sixteen-year teaching and research career across film studies, digital media, and critical theory at Brown and peer institutions. Designed and taught 30+ courses; mentored hundreds of students. Published research in film and media (focus on horror, giallo, and Argento).</p>
+    </article>
+  </section>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <section class="skills" id="skills">
+    <h2>Skills</h2>
+
+    <div class="group">
+      <p class="label">Customer governance and maturity</p>
+      <p class="body">Authored GEARS (Workato's customer governance and maturity framework); two-layer operating models (provider/customer); governance-as-product; supportability-at-scale as a design feature; reference architectures; architecture vision and target-state design.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Technical Services and operating-model design</p>
+      <p class="body">Built and ran a post-sale Technical Services organization at scale; defined the seams with Professional Services, Support, and Sales Engineering; designed the path from one-engineer escalation surface to a tiered, productized function.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Agentic AI / MCP</p>
+      <p class="body">Enterprise Model Context Protocol; agentic deployment patterns; agent and tool governance; composable-skills versus granular-tools design; human-in-the-loop workflows; end-user permission inheritance and identity propagation.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Integration architecture</p>
+      <p class="body">APIs and integration patterns; backend systems and event-driven architectures; webhooks and system communication; debugging across multiple systems; SDLC for integration; multi-environment promotion.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Engineering background</p>
+      <p class="body">Production contributions to Node.js, Ember, and GraphQL codebases at Thought Industries; ongoing hands-on work with TypeScript, Python, and the Claude API for customer-engagement assets.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Enterprise architecture</p>
+      <p class="body">TOGAF 10 ADM; transition architectures and roadmaps; architecture governance; stakeholder management.</p>
+    </div>
+
+    <div class="group">
+      <p class="label">Adjacent platforms</p>
+      <p class="body">Salesforce, NetSuite, Workday, Microsoft Dynamics 365, Oracle, ServiceNow, Sage ERP.</p>
+    </div>
+  </section>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <section class="stack" id="thought-leadership">
+    <h2>Thought leadership</h2>
+    <p>Primary architect of GEARS, Workato's customer governance and maturity framework; primary architect of the embedded-platform variant (GEARS for Embed).</p>
+    <p>Core contributor, enterprise Model Context Protocol best-practice corpus; named in the October 2025 enterprise MCP platform launch.</p>
+    <p>Trainer, Workato 2025 annual conference.</p>
+  </section>
+
+  <section class="stack" id="certifications">
+    <h2>Certifications</h2>
+    <p>TOGAF 10 Foundation (in progress) · Workato Automation Pro 1, 2, 3 · Product Management (General Assembly) · Software Engineering Immersive (General Assembly).</p>
+  </section>
+
+  <section class="stack" id="education">
+    <h2>Education</h2>
+    <p><strong>Ph.D., Modern Culture and Media</strong> — Brown University, 2010.</p>
+    <p><strong>B.A., Film and Video Studies</strong> — University of Michigan, 2000.</p>
+  </section>
+
+  <section class="stack" id="languages">
+    <h2>Languages</h2>
+    <p>English (native) · Italian · French.</p>
+  </section>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <section class="stack" id="contact">
+    <h2>Get in touch</h2>
+    <p>The best way to reach me is by email at <a href="mailto:michael@michaellorensiegel.com">michael@michaellorensiegel.com</a>. I'm also on <a href="https://www.linkedin.com/in/michaellorensiegel" rel="me">LinkedIn</a>.</p>
+    <p>For recruiters and hiring managers: I'm currently exploring senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. Happy to share more about what I'm looking for if you want to get on a call.</p>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>© Michael Loren Siegel</p>
+  </div>
+</footer>
+
+</body>
+</html>
