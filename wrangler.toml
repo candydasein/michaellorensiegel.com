@@ -1,3 +1,5 @@
+# Static-assets Worker for michaellorensiegel.com.
+# Auto-deploys on push to main via the project's Build settings in Cloudflare.
 name = "michaellorensiegel-com"
 compatibility_date = "2025-05-01"
 
