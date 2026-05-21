@@ -1,0 +1,6 @@
+name = "michaellorensiegel-com"
+compatibility_date = "2025-05-01"
+
+[assets]
+directory = "./website"
+not_found_handling = "single-page-application"
