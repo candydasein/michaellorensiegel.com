@@ -17,6 +17,7 @@
 <style>
   :root {
     --paper: #f7f3ec;
+    --paper-translucent: rgba(247, 243, 236, 0.88);
     --ink: #1c1815;
     --rust: #a44a2a;
     --mute: #6b6660;
@@ -34,8 +35,6 @@
     -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
-  .display { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
-  .display-tight { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
   .eyebrow { color: var(--rust); text-transform: uppercase; letter-spacing: 0.22em; font-size: 11px; font-weight: 500; }
   a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:hover { color: var(--rust); }
@@ -52,7 +51,7 @@
   }
 
   header.site {
-    padding: 112px 0 28px;
+    padding: 80px 0 24px;
     position: relative;
   }
   header.site::after {
@@ -61,7 +60,7 @@
     width: 56px;
     height: 2px;
     background: var(--rust);
-    margin-top: 28px;
+    margin-top: 24px;
     border-radius: 2px;
   }
   header.site h1 {
@@ -69,8 +68,8 @@
     font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 1.0;
-    font-size: clamp(44px, 7vw, 76px);
-    margin: 18px 0 22px;
+    font-size: clamp(40px, 6.5vw, 68px);
+    margin: 16px 0 20px;
   }
   header.site .contact {
     color: var(--mute);
@@ -80,32 +79,97 @@
   header.site .contact a { color: var(--mute); }
   header.site .contact a:hover { color: var(--rust); }
 
-  .divider {
-    text-align: center;
-    color: var(--rust);
-    font-family: 'Fraunces', Georgia, serif;
+  /* TABS */
+  .tabs-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 24px -28px 0;
+    background: var(--paper-translucent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .tabs {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+            mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 16px 14px 14px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 14px;
-    letter-spacing: 0.6em;
-    padding-left: 0.6em;
-    margin: 64px 0 0;
-    opacity: 0.85;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--mute);
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 150ms ease;
+    flex-shrink: 0;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab:focus-visible {
+    outline: 2px solid var(--rust);
+    outline-offset: -4px;
+    border-radius: 4px;
+  }
+  .tab.active { color: var(--ink); font-weight: 600; }
+  .tab::after {
+    content: "";
+    position: absolute;
+    left: 14px; right: 14px;
+    bottom: -1px;
+    height: 2px;
+    background: var(--rust);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    border-radius: 2px 2px 0 0;
+  }
+  .tab.active::after { transform: scaleX(1); }
+
+  /* PANELS */
+  .panels { padding: 8px 0 0; }
+  .panel { padding: 40px 0 16px; }
+  .panel[hidden] { display: none; }
+  .panel.entering {
+    animation: panelEnter 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @keyframes panelEnter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  section { padding: 48px 0 8px; }
-  section h2 {
+  /* PANEL CONTENT */
+  .panel h2 {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 500;
     letter-spacing: -0.02em;
-    font-size: 30px;
+    font-size: 32px;
     margin: 0 0 28px;
   }
-  section .section-frame {
+  .panel .section-frame {
     color: var(--mute);
     font-size: 15px;
     margin: -16px 0 28px;
     font-style: italic;
   }
+  .panel section + section { margin-top: 56px; padding-top: 56px; border-top: 1px solid var(--rule); }
 
+  /* BIO (Welcome) */
   .bio p { font-size: 18px; line-height: 1.65; margin: 0 0 20px; }
   .bio p:first-of-type::first-letter {
     font-family: 'Fraunces', Georgia, serif;
@@ -117,6 +181,7 @@
     color: var(--rust);
   }
 
+  /* ROLES */
   .role { margin-bottom: 48px; }
   .role:last-child { margin-bottom: 8px; }
   .role .head {
@@ -138,24 +203,25 @@
   .role .frame { color: var(--mute); font-size: 15px; margin: 4px 0 22px; font-style: italic; }
   .role p { margin: 0 0 14px; }
   .role p:last-child { margin: 0; }
-  .subsection { margin: 0 0 22px; }
+
+  .subsection { margin: 0 0 24px; }
   .subsection h4 {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 18px;
     letter-spacing: -0.01em;
-    margin: 0 0 6px;
+    margin: 0 0 8px;
   }
   .subsection p { margin: 0; }
 
-  .engagement { margin: 0 0 24px; }
+  .engagement { margin: 0 0 28px; }
   .engagement:last-child { margin: 0; }
   .engagement .label {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 18px;
     letter-spacing: -0.01em;
-    margin: 0 0 4px;
+    margin: 0 0 6px;
   }
   .engagement p { margin: 0; }
 
@@ -163,19 +229,20 @@
   .stack p:last-child { margin: 0; }
 
   footer.site {
-    padding: 64px 0 96px;
-    border-top: 1px solid var(--rule);
-    margin-top: 56px;
+    padding: 80px 0 64px 0;
     color: var(--mute);
-    font-size: 14px;
+    font-size: 13px;
+    text-align: center;
   }
-  footer.site a { color: var(--mute); }
-  footer.site a:hover { color: var(--rust); }
 
   @media (max-width: 600px) {
-    header.site { padding-top: 72px; }
+    header.site { padding-top: 56px; padding-bottom: 18px; }
+    header.site h1 { font-size: clamp(36px, 9vw, 48px); margin: 14px 0 16px; }
     .role .head { flex-direction: column; gap: 2px; }
     .role .years { font-size: 13px; }
+    .tab { padding: 14px 12px 12px; font-size: 13px; }
+    .panel h2 { font-size: 26px; }
+    .panel { padding-top: 28px; }
   }
 </style>
 </head>
@@ -197,175 +264,270 @@
     </p>
   </header>
 
-  <section class="bio" id="welcome">
-    <h2>Welcome</h2>
-    <p>Welcome, and thanks for stopping by. I'm Michael — Strategic Advisor at Workato, an enterprise orchestration and agentic-AI platform — and I live in Barcelona with my family and our dog Sahi.</p>
-    <p>What I do at Workato has two halves. The first is institutional: I'm the primary architect of GEARS, the customer governance and maturity framework the firm uses to scale enterprise adoption, and of its embedded-integration variant. The second is hands-on: I pair that framework authorship with architecture and adoption work inside the largest enterprise engagements. I'm also a core contributor to Workato's October 2025 enterprise Model Context Protocol launch — the firm's foundational work on enterprise-grade agentic AI.</p>
-    <p>Before Workato, four and a half years at Thought Industries building the post-sale technical-services function from inside engineering — the same structural problem GEARS now codifies. Before tech, sixteen years in higher education: a Brown PhD in modern culture and media, professor of film and digital media at Brown and peer institutions, senior policy and communications strategist to the president of Rhode Island School of Design. The through-line is a systems instinct — structure and architecture, how things move and get organized, and the broader principles those patterns belong to.</p>
-    <p>If you're here because you're hiring, I'm open to senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. The full resume is below. If you're here for another reason — a friend, a former student, a colleague, a curious stranger — I'm glad you came by.</p>
-  </section>
+  <div class="tabs-wrap">
+    <nav class="tabs" role="tablist" aria-label="Resume sections">
+      <button class="tab active" role="tab" data-tab="welcome" aria-selected="true"  aria-controls="panel-welcome"     id="tab-welcome"     tabindex="0">Welcome</button>
+      <button class="tab"        role="tab" data-tab="workato" aria-selected="false" aria-controls="panel-workato"     id="tab-workato"     tabindex="-1">Workato</button>
+      <button class="tab"        role="tab" data-tab="engagements" aria-selected="false" aria-controls="panel-engagements" id="tab-engagements" tabindex="-1">Engagements</button>
+      <button class="tab"        role="tab" data-tab="earlier" aria-selected="false" aria-controls="panel-earlier"     id="tab-earlier"     tabindex="-1">Earlier</button>
+      <button class="tab"        role="tab" data-tab="credentials" aria-selected="false" aria-controls="panel-credentials" id="tab-credentials" tabindex="-1">Credentials</button>
+    </nav>
+  </div>
 
-  <div class="divider">◆ ◆ ◆</div>
+  <div class="panels">
 
-  <section id="workato">
-    <h2>Workato — Strategic Advisor</h2>
-    <p class="section-frame">2023 – present · Pair framework authorship at the company layer with hands-on architecture and adoption inside the largest enterprise engagements.</p>
+    <section class="panel bio entering" data-panel="welcome" id="panel-welcome" role="tabpanel" aria-labelledby="tab-welcome">
+      <h2>Welcome</h2>
+      <p>Welcome, and thanks for stopping by. I'm Michael — Strategic Advisor at Workato, an enterprise orchestration and agentic-AI platform — and I live in Barcelona with my family and our dog Sahi.</p>
+      <p>What I do at Workato has two halves. The first is institutional: I'm the primary architect of GEARS, the customer governance and maturity framework the firm uses to scale enterprise adoption, and of its embedded-integration variant. The second is hands-on: I pair that framework authorship with architecture and adoption work inside the largest enterprise engagements. I'm also a core contributor to Workato's October 2025 enterprise Model Context Protocol launch — the firm's foundational work on enterprise-grade agentic AI.</p>
+      <p>Before Workato, four and a half years at Thought Industries building the post-sale technical-services function from inside engineering — the same structural problem GEARS now codifies. Before tech, sixteen years in higher education: a Brown PhD in modern culture and media, professor of film and digital media at Brown and peer institutions, senior policy and communications strategist to the president of Rhode Island School of Design. The through-line is a systems instinct — structure and architecture, how things move and get organized, and the broader principles those patterns belong to.</p>
+      <p>If you're here because you're hiring, I'm open to senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. The full resume lives in the tabs above. If you're here for another reason — a friend, a former student, a colleague, a curious stranger — I'm glad you came by.</p>
+    </section>
 
-    <div class="subsection">
-      <h4>Frameworks and certification authorship</h4>
-      <p>Primary architect of GEARS — Workato's customer governance and maturity framework — and its embedded-platform variant (GEARS for Embed). GEARS is the institutional vocabulary the company uses to scale enterprise customers from initial implementation through governed adoption: the seams between Center-of-Excellence formation, role taxonomy, environment lifecycle, audit posture, and the operating model that has to survive a decade of organizational turnover. Co-owner of the Platform Administrator certification competency model and the new Agentic Platform Administration subdomain within it; helped define what "competence" formally means for the next phase of platform work at credential level.</p>
-    </div>
+    <section class="panel" data-panel="workato" id="panel-workato" role="tabpanel" aria-labelledby="tab-workato" hidden>
+      <h2>Workato — Strategic Advisor</h2>
+      <p class="section-frame">2023 – present · Pair framework authorship at the company layer with hands-on architecture and adoption inside the largest enterprise engagements.</p>
 
-    <div class="subsection">
-      <h4>Enablement as a structural discipline</h4>
-      <p>Pioneered the Professional Services × Education-and-Training collaboration model under which flagship customers receive advisory and capability uplift as a single coordinated delivery rather than two parallel motions that miss each other — first instantiated at the Fortune 500 cosmetics program through 2026. Trainer at the company's 2025 annual conference; learning-management subject-matter expert to Professional Services. Not a soft skill bolted onto the technical work; the discipline that decides whether an enterprise transformation actually lands inside the customer's organization.</p>
-    </div>
-
-    <div class="subsection">
-      <h4>Trusted architect to enterprise programs</h4>
-      <p>Single point of accountability for post-sale technical strategy across a portfolio of flagship customers. These engagements are multi-year and existential to the customer's business case for the platform; they require executive-grade clarity delivered to the people one layer below the C-suite — the Center-of-Excellence leads, automation program owners, and enterprise architects who actually build and govern what gets shipped. The currency of the work is trust, and trust converts: 10/10 customer satisfaction at three named flagship accounts, foundational engagements that produced multi-year follow-on at the same accounts, and one publicly-traded HR-services customer that retired a competing iPaaS contract within its first year on platform.</p>
-    </div>
-
-    <div class="subsection">
-      <h4>Enterprise governance and architectural judgment</h4>
-      <p>Define and defend the principles that determine whether an enterprise automation program is safe at scale: identity and access, environment lifecycle, separation of duties, integration patterns, audit posture. The decisions that matter rarely reduce to a technology choice; they come down to whether the structure underneath holds under regulatory scrutiny, organizational growth, and ten years of staff turnover. On a Fortune 500 enablement program I redirected the customer's lift-and-shift instinct toward event-driven messaging on long-running workflows, locking in scale before it became a production problem. On a separate migration I caught a structural mismatch between the customer's existing access-control model and the new platform target before it shipped, averting a silent environment-permission failure. Rated above required level on Business Architecture and Systems Thinking in Workato's competency framework.</p>
-    </div>
-
-    <div class="subsection">
-      <h4>Agentic AI and the security perimeter around it</h4>
-      <p>Core contributor to Workato's enterprise MCP best-practice corpus and named in the October 2025 launch of the industry's first enterprise-grade Model Context Protocol platform for AI agents. Authored the Virtual User Authentication framework, which addresses the central enterprise question for agentic workflows: how an agent acts as the right user against downstream systems without becoming the customer's most over-permissioned identity. Led the firm's first agentic-AI advisory engagement and translate emerging agent capability into patterns enterprises can deploy under existing security and compliance posture.</p>
-    </div>
-  </section>
-
-  <section id="flagship">
-    <h2>Selected flagship engagements</h2>
-    <p class="section-frame">Customer names masked · full disclosure on request.</p>
-
-    <div class="engagement">
-      <p class="label">Fortune 500 global beauty and cosmetics company</p>
-      <p>Multi-year enablement program underpinning the customer's exit from a legacy enterprise integration platform through end-2026, delivered across five cities on three continents. The technical work is the easy part; the harder problem is whether hundreds of business-side builders across multiple geographies can do this work safely, consistently, and to a single standard. Own the capability uplift end-to-end — live training with a tiered curriculum, learning-management direction, and an integration portal that lets the customer audit and govern its own automation estate. Architectural calls, including event-driven messaging on long-running workflows, kept early decisions from becoming late-stage liabilities.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Global financial-data and ratings firm</p>
-      <p>Designed the access-control and operating governance for a high-stakes scale-up — an embedded integration platform pushing 100+ APIs out to hundreds of downstream customers in a regulated information-services context, where the risk surface is the product. Built the role taxonomy, environment and workspace strategy, custom-integration intake, and responsibility model, and deliberately re-sequenced the methodology — Center-of-Excellence formation ahead of its standard order — to match the maturity actually present in the room. The point is not the artifacts; it is that this customer can grow its embedded business without growing its breach exposure proportionally.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Enterprise visual-collaboration platform</p>
-      <p>Migration covering roughly 400 automations into a hardened access-control posture. Caught a structural mismatch between the customer's existing access-control model and the new platform template that would have produced a silent environment-permission failure in production. Designed a phased model that let the customer ship a working operational posture immediately and a full separation-of-duties posture as their organization matured into it, anchored on SAML with just-in-time provisioning. Pragmatism over purity, with the security ceiling raised — not lowered.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Global talent-solutions provider</p>
-      <p>Active foundational engagement at a firm exiting a legacy decisioning platform. Architecting a dual-region central operating model spanning Workday, Microsoft Dynamics 365, Oracle, and ServiceNow plus client integrations under simultaneous EU and US data-residency constraints. The architectural challenge is largely jurisdictional: how a single operating model breathes correctly under two regulatory regimes without forcing the business to behave as two organizations.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">B2B apparel manufacturer (four-party program)</p>
-      <p>Technical architect and primary builder on a four-party engagement spanning the platform vendor, the customer, a Salesforce delivery partner, and a Sage delivery partner. Built the production integration personally while running alignment across organizations through an externally resistant partner; launched on schedule. What gets remembered there is not the integration; it is the diplomacy that kept the program from coming apart.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Enterprise procurement-software firm and publicly-traded HR-services provider</p>
-      <p>Two foundational embedded engagements that produced the operating pattern later codified in the embedded variant of the firm's methodology — the work was good enough, twice, that it became the template. 10/10 customer satisfaction at the procurement firm, converting directly into multi-year follow-on; the HR-services customer reached first production value in 64 days and retired a competing iPaaS contract before year-end.</p>
-    </div>
-  </section>
-
-  <section id="advisory">
-    <h2>Additional advisory engagements</h2>
-
-    <div class="engagement">
-      <p class="label">Global proprietary trading firm</p>
-      <p>Data-governance and lightweight master-data-management advisory for a deeply technical customer. Recommended deliberate under-use of my own platform — orchestration plus lightweight MDM short-term, dedicated MDM tooling medium-term, the platform as connective tissue long-term. The trust produced by that posture is the relationship.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Global news, legal, and tax-information firm</p>
-      <p>Reinvigorated platform engagement across business verticals at a major information-services brand and produced a generative-AI showcase use case. 10/10 customer satisfaction.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Global media network</p>
-      <p>Ongoing weekly strategic cadence on embedded governance, access control, lifecycle, API-led architecture, and event-driven patterns. The customer recently asked to convert the cadence into co-delivered training workshops — a tell about how the relationship is functioning.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Other strategic engagements</p>
-      <p>Embedded governance and platform-administration design for a non-profit regional health insurer; structured closeout of a global M&amp;A advisory firm's automation program in late 2025, aligned to the firm's delivery methodology; first agentic-AI advisory engagement (B2B revenue-intelligence platform); 10/10 customer satisfaction at a fitness-industry software platform.</p>
-    </div>
-
-    <div class="engagement">
-      <p class="label">Brief and internal advisory</p>
-      <p>Light-touch advisory and internal scoping support across a global payments network, a global telecommunications operator, the European arm of a global automotive manufacturer, two enterprise learning platforms, and a global financial-services bank.</p>
-    </div>
-  </section>
-
-  <div class="divider">◆ ◆ ◆</div>
-
-  <section id="earlier-experience">
-    <h2>Earlier experience</h2>
-
-    <article class="role">
-      <div class="head">
-        <h3 class="title">Thought Industries — Director, Solutions and Platform Engineering</h3>
-        <span class="years">2017 — 2023</span>
+      <div class="subsection">
+        <h4>Frameworks and certification authorship</h4>
+        <p>Primary architect of GEARS — Workato's customer governance and maturity framework — and its embedded-platform variant (GEARS for Embed). GEARS is the institutional vocabulary the company uses to scale enterprise customers from initial implementation through governed adoption: the seams between Center-of-Excellence formation, role taxonomy, environment lifecycle, audit posture, and the operating model that has to survive a decade of organizational turnover. Co-owner of the Platform Administrator certification competency model and the new Agentic Platform Administration subdomain within it; helped define what "competence" formally means for the next phase of platform work at credential level.</p>
       </div>
-      <p class="frame">Enterprise learning-management SaaS. Director of Solutions and Platform Engineering (2021–2023); Senior Solutions Architect (2019–2021); Application Engineer (2017–2019).</p>
-      <p>Built the post-sale technical-services function from inside engineering, because no such function existed when I joined. Customer-facing technical work — integrations, custom development, escalations from Professional Services — fell to me by default. Formalized it into Solutions Architecture in 2019, grew and led the team through three years of scale, and took over Sales Engineering in 2021 to combine the pre- and post-sale technical motions under a single Solutions and Platform Engineering organization. Built the function specifically because the alternative — a Customer Success team patched into engineering through tickets — cannot carry a high-technical SaaS product. That structural diagnosis is the same one Workato GEARS now codifies.</p>
-      <p>Ran the function at scale: 50–60 customer implementations per year, pre-sales technical POCs, and custom-build delivery across a multi-level team of solutions architects and platform engineers. Defined the operating seams with Professional Services, Support, and Sales Engineering; built the hiring criteria, technical onboarding curriculum, and escalation discipline that protected engineering from customer firefighting. Selected and implemented the iPaaS that became the company's integration backbone (Workato), redirecting integration effort out of product engineering into a Professional Services revenue motion. Five years of direct production contributions to Node.js, Ember, and GraphQL codebases and product API before moving into post-sale technical leadership.</p>
-    </article>
 
-    <article class="role">
-      <div class="head">
-        <h3 class="title">Rhode Island School of Design — Special Assistant to the President</h3>
-        <span class="years">2015 — 2017</span>
+      <div class="subsection">
+        <h4>Enablement as a structural discipline</h4>
+        <p>Pioneered the Professional Services × Education-and-Training collaboration model under which flagship customers receive advisory and capability uplift as a single coordinated delivery rather than two parallel motions that miss each other — first instantiated at the Fortune 500 cosmetics program through 2026. Trainer at the company's 2025 annual conference; learning-management subject-matter expert to Professional Services. Not a soft skill bolted onto the technical work; the discipline that decides whether an enterprise transformation actually lands inside the customer's organization.</p>
       </div>
-      <p>Communications and policy strategist to the president; shaped the office's voice across art, design, technology, and DEI; founded and owned the institution's first Social Equity Action Committee and Plan — building governance where there had been none.</p>
-    </article>
 
-    <article class="role">
-      <div class="head">
-        <h3 class="title">Brown University and peer institutions — Professor of Film and Media Studies</h3>
-        <span class="years">2002 — 2017</span>
+      <div class="subsection">
+        <h4>Trusted architect to enterprise programs</h4>
+        <p>Single point of accountability for post-sale technical strategy across a portfolio of flagship customers. These engagements are multi-year and existential to the customer's business case for the platform; they require executive-grade clarity delivered to the people one layer below the C-suite — the Center-of-Excellence leads, automation program owners, and enterprise architects who actually build and govern what gets shipped. The currency of the work is trust, and trust converts: 10/10 customer satisfaction at three named flagship accounts, foundational engagements that produced multi-year follow-on at the same accounts, and one publicly-traded HR-services customer that retired a competing iPaaS contract within its first year on platform.</p>
       </div>
-      <p>Designed and taught 30+ courses across film studies, digital media, critical theory, and film production at Ivy League and peer institutions; published essays on film, media, and culture; chaired panels at professional conferences. Sixteen years of teaching how to read structure into things that look unstructured — the same instinct now applied to enterprise architecture.</p>
-    </article>
-  </section>
 
-  <div class="divider">◆ ◆ ◆</div>
+      <div class="subsection">
+        <h4>Enterprise governance and architectural judgment</h4>
+        <p>Define and defend the principles that determine whether an enterprise automation program is safe at scale: identity and access, environment lifecycle, separation of duties, integration patterns, audit posture. The decisions that matter rarely reduce to a technology choice; they come down to whether the structure underneath holds under regulatory scrutiny, organizational growth, and ten years of staff turnover. On a Fortune 500 enablement program I redirected the customer's lift-and-shift instinct toward event-driven messaging on long-running workflows, locking in scale before it became a production problem. On a separate migration I caught a structural mismatch between the customer's existing access-control model and the new platform target before it shipped, averting a silent environment-permission failure. Rated above required level on Business Architecture and Systems Thinking in Workato's competency framework.</p>
+      </div>
 
-  <section class="stack" id="education">
-    <h2>Education</h2>
-    <p><strong>Ph.D., Modern Culture and Media</strong> — Brown University, 2010. Dissertation on late-capitalist urban space in the cinema of Dario Argento.</p>
-    <p><strong>B.A., Film and Video Studies</strong> — University of Michigan, 2000.</p>
-  </section>
+      <div class="subsection">
+        <h4>Agentic AI and the security perimeter around it</h4>
+        <p>Core contributor to Workato's enterprise MCP best-practice corpus and named in the October 2025 launch of the industry's first enterprise-grade Model Context Protocol platform for AI agents. Authored the Virtual User Authentication framework, which addresses the central enterprise question for agentic workflows: how an agent acts as the right user against downstream systems without becoming the customer's most over-permissioned identity. Led the firm's first agentic-AI advisory engagement and translate emerging agent capability into patterns enterprises can deploy under existing security and compliance posture.</p>
+      </div>
+    </section>
 
-  <section class="stack" id="certifications">
-    <h2>Certifications</h2>
-    <p>TOGAF 10 Foundation (in progress) · Workato Automation Pro 1, 2, 3 · Product Management and Software Engineering Immersive (General Assembly).</p>
-  </section>
+    <section class="panel" data-panel="engagements" id="panel-engagements" role="tabpanel" aria-labelledby="tab-engagements" hidden>
+      <section>
+        <h2>Selected flagship engagements</h2>
+        <p class="section-frame">Customer names masked · full disclosure on request.</p>
 
-  <section class="stack" id="languages">
-    <h2>Languages</h2>
-    <p>English (native) · Italian · French.</p>
-  </section>
+        <div class="engagement">
+          <p class="label">Fortune 500 global beauty and cosmetics company</p>
+          <p>Multi-year enablement program underpinning the customer's exit from a legacy enterprise integration platform through end-2026, delivered across five cities on three continents. The technical work is the easy part; the harder problem is whether hundreds of business-side builders across multiple geographies can do this work safely, consistently, and to a single standard. Own the capability uplift end-to-end — live training with a tiered curriculum, learning-management direction, and an integration portal that lets the customer audit and govern its own automation estate. Architectural calls, including event-driven messaging on long-running workflows, kept early decisions from becoming late-stage liabilities.</p>
+        </div>
 
-  <div class="divider">◆ ◆ ◆</div>
+        <div class="engagement">
+          <p class="label">Global financial-data and ratings firm</p>
+          <p>Designed the access-control and operating governance for a high-stakes scale-up — an embedded integration platform pushing 100+ APIs out to hundreds of downstream customers in a regulated information-services context, where the risk surface is the product. Built the role taxonomy, environment and workspace strategy, custom-integration intake, and responsibility model, and deliberately re-sequenced the methodology — Center-of-Excellence formation ahead of its standard order — to match the maturity actually present in the room. The point is not the artifacts; it is that this customer can grow its embedded business without growing its breach exposure proportionally.</p>
+        </div>
 
-  <section class="stack" id="contact">
-    <h2>Get in touch</h2>
-    <p>The best way to reach me is by email at <a href="mailto:michael@michaellorensiegel.com">michael@michaellorensiegel.com</a>. I'm also on <a href="https://www.linkedin.com/in/michaellorensiegel" rel="me">LinkedIn</a>.</p>
-    <p>For recruiters and hiring managers: I'm currently exploring senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. Happy to share more about what I'm looking for if you want to get on a call.</p>
-  </section>
+        <div class="engagement">
+          <p class="label">Enterprise visual-collaboration platform</p>
+          <p>Migration covering roughly 400 automations into a hardened access-control posture. Caught a structural mismatch between the customer's existing access-control model and the new platform template that would have produced a silent environment-permission failure in production. Designed a phased model that let the customer ship a working operational posture immediately and a full separation-of-duties posture as their organization matured into it, anchored on SAML with just-in-time provisioning. Pragmatism over purity, with the security ceiling raised — not lowered.</p>
+        </div>
 
+        <div class="engagement">
+          <p class="label">Global talent-solutions provider</p>
+          <p>Active foundational engagement at a firm exiting a legacy decisioning platform. Architecting a dual-region central operating model spanning Workday, Microsoft Dynamics 365, Oracle, and ServiceNow plus client integrations under simultaneous EU and US data-residency constraints. The architectural challenge is largely jurisdictional: how a single operating model breathes correctly under two regulatory regimes without forcing the business to behave as two organizations.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">B2B apparel manufacturer (four-party program)</p>
+          <p>Technical architect and primary builder on a four-party engagement spanning the platform vendor, the customer, a Salesforce delivery partner, and a Sage delivery partner. Built the production integration personally while running alignment across organizations through an externally resistant partner; launched on schedule. What gets remembered there is not the integration; it is the diplomacy that kept the program from coming apart.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">Enterprise procurement-software firm and publicly-traded HR-services provider</p>
+          <p>Two foundational embedded engagements that produced the operating pattern later codified in the embedded variant of the firm's methodology — the work was good enough, twice, that it became the template. 10/10 customer satisfaction at the procurement firm, converting directly into multi-year follow-on; the HR-services customer reached first production value in 64 days and retired a competing iPaaS contract before year-end.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Additional advisory engagements</h2>
+
+        <div class="engagement">
+          <p class="label">Global proprietary trading firm</p>
+          <p>Data-governance and lightweight master-data-management advisory for a deeply technical customer. Recommended deliberate under-use of my own platform — orchestration plus lightweight MDM short-term, dedicated MDM tooling medium-term, the platform as connective tissue long-term. The trust produced by that posture is the relationship.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">Global news, legal, and tax-information firm</p>
+          <p>Reinvigorated platform engagement across business verticals at a major information-services brand and produced a generative-AI showcase use case. 10/10 customer satisfaction.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">Global media network</p>
+          <p>Ongoing weekly strategic cadence on embedded governance, access control, lifecycle, API-led architecture, and event-driven patterns. The customer recently asked to convert the cadence into co-delivered training workshops — a tell about how the relationship is functioning.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">Other strategic engagements</p>
+          <p>Embedded governance and platform-administration design for a non-profit regional health insurer; structured closeout of a global M&amp;A advisory firm's automation program in late 2025, aligned to the firm's delivery methodology; first agentic-AI advisory engagement (B2B revenue-intelligence platform); 10/10 customer satisfaction at a fitness-industry software platform.</p>
+        </div>
+
+        <div class="engagement">
+          <p class="label">Brief and internal advisory</p>
+          <p>Light-touch advisory and internal scoping support across a global payments network, a global telecommunications operator, the European arm of a global automotive manufacturer, two enterprise learning platforms, and a global financial-services bank.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel" data-panel="earlier" id="panel-earlier" role="tabpanel" aria-labelledby="tab-earlier" hidden>
+      <h2>Earlier experience</h2>
+
+      <article class="role">
+        <div class="head">
+          <h3 class="title">Thought Industries — Director, Solutions and Platform Engineering</h3>
+          <span class="years">2017 — 2023</span>
+        </div>
+        <p class="frame">Enterprise learning-management SaaS. Director of Solutions and Platform Engineering (2021–2023); Senior Solutions Architect (2019–2021); Application Engineer (2017–2019).</p>
+        <p>Built the post-sale technical-services function from inside engineering, because no such function existed when I joined. Customer-facing technical work — integrations, custom development, escalations from Professional Services — fell to me by default. Formalized it into Solutions Architecture in 2019, grew and led the team through three years of scale, and took over Sales Engineering in 2021 to combine the pre- and post-sale technical motions under a single Solutions and Platform Engineering organization. Built the function specifically because the alternative — a Customer Success team patched into engineering through tickets — cannot carry a high-technical SaaS product. That structural diagnosis is the same one Workato GEARS now codifies.</p>
+        <p>Ran the function at scale: 50–60 customer implementations per year, pre-sales technical POCs, and custom-build delivery across a multi-level team of solutions architects and platform engineers. Defined the operating seams with Professional Services, Support, and Sales Engineering; built the hiring criteria, technical onboarding curriculum, and escalation discipline that protected engineering from customer firefighting. Selected and implemented the iPaaS that became the company's integration backbone (Workato), redirecting integration effort out of product engineering into a Professional Services revenue motion. Five years of direct production contributions to Node.js, Ember, and GraphQL codebases and product API before moving into post-sale technical leadership.</p>
+      </article>
+
+      <article class="role">
+        <div class="head">
+          <h3 class="title">Rhode Island School of Design — Special Assistant to the President</h3>
+          <span class="years">2015 — 2017</span>
+        </div>
+        <p>Communications and policy strategist to the president; shaped the office's voice across art, design, technology, and DEI; founded and owned the institution's first Social Equity Action Committee and Plan — building governance where there had been none.</p>
+      </article>
+
+      <article class="role">
+        <div class="head">
+          <h3 class="title">Brown University and peer institutions — Professor of Film and Media Studies</h3>
+          <span class="years">2002 — 2017</span>
+        </div>
+        <p>Designed and taught 30+ courses across film studies, digital media, critical theory, and film production at Ivy League and peer institutions; published essays on film, media, and culture; chaired panels at professional conferences. Sixteen years of teaching how to read structure into things that look unstructured — the same instinct now applied to enterprise architecture.</p>
+      </article>
+    </section>
+
+    <section class="panel" data-panel="credentials" id="panel-credentials" role="tabpanel" aria-labelledby="tab-credentials" hidden>
+      <section class="stack">
+        <h2>Education</h2>
+        <p><strong>Ph.D., Modern Culture and Media</strong> — Brown University, 2010. Dissertation on late-capitalist urban space in the cinema of Dario Argento.</p>
+        <p><strong>B.A., Film and Video Studies</strong> — University of Michigan, 2000.</p>
+      </section>
+
+      <section class="stack">
+        <h2>Certifications</h2>
+        <p>TOGAF 10 Foundation (in progress) · Workato Automation Pro 1, 2, 3 · Product Management and Software Engineering Immersive (General Assembly).</p>
+      </section>
+
+      <section class="stack">
+        <h2>Languages</h2>
+        <p>English (native) · Italian · French.</p>
+      </section>
+
+      <section class="stack">
+        <h2>Get in touch</h2>
+        <p>The best way to reach me is by email at <a href="mailto:michael@michaellorensiegel.com">michael@michaellorensiegel.com</a>. I'm also on <a href="https://www.linkedin.com/in/michaellorensiegel" rel="me">LinkedIn</a>.</p>
+        <p>For recruiters and hiring managers: I'm currently exploring senior advisor, principal solutions architect, and senior pre-sales roles based in Europe, or remote from Europe to the US. Happy to share more about what I'm looking for if you want to get on a call.</p>
+      </section>
+    </section>
+
+  </div>
 </main>
 
 <footer class="site">
-  <div class="wrap">
-    <p>© Michael Loren Siegel</p>
-  </div>
+  <div class="wrap">© Michael Loren Siegel</div>
 </footer>
+
+<script>
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+    var names = tabs.map(function (t) { return t.dataset.tab; });
+
+    function activate(name, opts) {
+      opts = opts || {};
+      if (names.indexOf(name) === -1) name = 'welcome';
+
+      tabs.forEach(function (t) {
+        var isActive = t.dataset.tab === name;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+
+      panels.forEach(function (p) {
+        var isActive = p.dataset.panel === name;
+        if (isActive) {
+          p.hidden = false;
+          p.classList.remove('entering');
+          // force reflow so the animation restarts
+          void p.offsetWidth;
+          p.classList.add('entering');
+        } else {
+          p.hidden = true;
+          p.classList.remove('entering');
+        }
+      });
+
+      // Update URL hash
+      if (opts.updateHash !== false) {
+        var newHash = (name === 'welcome') ? ' ' : '#' + name;
+        var current = window.location.hash;
+        if (name === 'welcome' && current) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else if (name !== 'welcome' && current !== '#' + name) {
+          history.replaceState(null, '', '#' + name);
+        }
+      }
+
+      // Scroll active tab into view on small screens
+      var activeTab = document.querySelector('.tab.active');
+      if (activeTab && activeTab.scrollIntoView) {
+        activeTab.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+
+      // If user clicked a tab while scrolled past the header, keep sticky tab bar visible.
+      // Don't auto-scroll to top — feels jarring. The new panel just fades in.
+    }
+
+    function fromHash() {
+      var raw = (window.location.hash || '').replace(/^#/, '');
+      activate(raw || 'welcome', { updateHash: false });
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        activate(tab.dataset.tab);
+      });
+      tab.addEventListener('keydown', function (e) {
+        var key = e.key;
+        if (key === 'ArrowRight' || key === 'ArrowLeft') {
+          e.preventDefault();
+          var dir = (key === 'ArrowRight') ? 1 : -1;
+          var next = tabs[(i + dir + tabs.length) % tabs.length];
+          next.focus();
+          activate(next.dataset.tab);
+        } else if (key === 'Home') {
+          e.preventDefault();
+          tabs[0].focus();
+          activate(tabs[0].dataset.tab);
+        } else if (key === 'End') {
+          e.preventDefault();
+          tabs[tabs.length - 1].focus();
+          activate(tabs[tabs.length - 1].dataset.tab);
+        }
+      });
+    });
+
+    window.addEventListener('hashchange', fromHash);
+    // Initialize from hash if present
+    fromHash();
+  })();
+</script>
 
 </body>
 </html>
